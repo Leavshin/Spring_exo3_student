@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recherche d'étudiants</title>
+    <th:block th:replace="fragments/bootstrap :: head"></th:block>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Recherche d'étudiants</h1>
+
+    <form th:action="@{/search}" method="post" class="mb-4">
+        <div class="form-group mb-3">
+            <label for="lastname">Nom de l'étudiant</label>
+            <input type="text" id="lastname" name="lastname" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+
+    <div th:if="${students != null}">
+        <div th:if="${students.size() > 0}">
+            <h2>Résultats de la recherche</h2>
+            <ul class="list-group">
+                <li th:each="c : ${students}" class="list-group-item">
+                    <span th:text="${c.lastname}"></span> <span th:text="${c.firstname}"></span>
+                    <a th:href="@{/detail/{id}(id=${c.id})}" class="btn btn-info btn-sm ml-2">Détails</a>
+                </li>
+            </ul>
+        </div>
+        <div th:if="${students.size() == 0}">
+            <p class="alert alert-warning">Aucun résultat trouvé</p>
+        </div>
+    </div>
+
+    <nav class="mt-4">
+        <a th:href="@{/}" class="btn btn-secondary">Accueil</a>
+    </nav>
+</div>
+</body>
+</html>

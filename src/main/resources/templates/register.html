@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inscription</title>
+    <th:block th:replace="fragments/bootstrap :: head"></th:block>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Inscription</h1>
+
+    <form th:action="@{/add}" method="post" th:object="${student}" class="mb-4">
+        <input th:field="*{id}" hidden>
+        <div class="form-group mb-3">
+            <label for="lastname">Nom de l'étudiant</label>
+            <input type="text" id="lastname" th:field="*{lastname}" class="form-control">
+        </div>
+        <div class="form-group mb-3">
+            <label for="firstname">Prénom de l'étudiant</label>
+            <input type="text" id="firstname" th:field="*{firstname}" class="form-control">
+        </div>
+        <div class="form-group mb-3">
+            <label for="age">Age de l'étudiant</label>
+            <input type="text" id="age" th:field="*{age}" class="form-control">
+        </div>
+        <div class="form-group mb-3">
+            <label for="email">Email de l'étudiant</label>
+            <input type="text" id="email" th:field="*{email}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <nav>
+        <a th:href="@{/}" class="btn btn-secondary">Accueil</a>
+    </nav>
+</div>
+</body>
+</html>
