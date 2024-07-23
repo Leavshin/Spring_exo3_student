@@ -3,10 +3,7 @@ package org.example.exercice3.service;
 import org.example.exercice3.model.Student;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,7 +11,7 @@ public class StudentService {
 
     private final Map<UUID, Student> students;
 
-    public StudentService(){
+    public StudentService() {
         students = new HashMap<>();
 
         Student studentA = Student.builder()
@@ -45,14 +42,17 @@ public class StudentService {
     }
 
     public List<Student> getAllStudents() {
-        return students.values().stream().toList();
+        return new ArrayList<>(students.values());
     }
 
     public Student getStudentById(UUID id) {
         return students.get(id);
     }
 
-    public List<Student> getStudentsByLastname(String lastname) {
+    public List<Student> searchStudentsByLastname(String lastname) {
+        if (lastname == null || lastname.trim().isEmpty()) {
+            return new ArrayList<>(students.values());
+        }
         return students.values().stream()
                 .filter(c -> c.getLastname().equalsIgnoreCase(lastname))
                 .collect(Collectors.toList());
